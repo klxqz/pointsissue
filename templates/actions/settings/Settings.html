@@ -1,0 +1,115 @@
+<h1>Пункты выдачи</h1>
+<div     class="fields form">
+    <form action="?plugin=pointsissue&action=save" method="post" id="plugins-settings-form">
+        {$wa->csrf()}
+
+
+        {literal}
+        <p>{shopPointsissuePlugin::display()} - Код хелпера вывода</p>
+        {/literal}
+        <p class="gray">
+            <i class="icon16 exclamation"></i>
+            Используя этот код Вы можете осуществить вывод "Пунктов выдачи" в любом месте вашей темы оформления, это позволяет избавиться от привязки к конкретным местам вывода плагина
+        </p>
+
+        <div class="field">
+            <div class="name">
+                Статус плагина
+            </div>
+            <div class="value">
+                <select name="shop_pointsissue[status]">
+                    <option {if $settings.status == 1} selected="selected"{/if} value="1">Включен</option>
+                    <option {if $settings.status == 0} selected="selected"{/if} value="0">Выключен</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="field">
+            <div class="name">
+                Вывод в корзине
+            </div>
+            <div class="value">
+                <select name="shop_pointsissue[frontend_cart]">
+                    <option {if $settings.frontend_cart == 1} selected="selected"{/if} value="1">Включен</option>
+                    <option {if $settings.frontend_cart == 0} selected="selected"{/if} value="0">Выключен</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="field">
+            <div class="name">
+                Заголовок
+            </div>
+            <div class="value">
+                <input type="text" name="shop_pointsissue[title]" value="{$settings.title|escape}"/>
+            </div>
+        </div>
+        
+        <div class="field">
+            <div class="name">
+                Название ссылки
+            </div>
+            <div class="value">
+                <input type="text" name="shop_pointsissue[link_name]" value="{$settings.link_name|escape}"/>
+            </div>
+        </div>
+
+        <div class="field">
+            <a target="_blank" href="http://api.yandex.ru/maps/tools/constructor/">Конструктор Яндекс.Карт</a>
+        </div>
+
+
+        <div class="pointsissue_container">
+            {foreach from=$points item=point}
+            <div class="field">
+                <input class="long" type="text" placeholder="Пункт выдачи" value="{$point.name|escape}" name="points[]">
+                <input class="long" type="text" placeholder="Карта проезда" value="{$point.map|escape}" name="pointmaps[]">
+                <a class="remove-point" href="javascript:void(0)"><i class="icon16 cross"></i></a>
+            </div>
+            {/foreach}
+
+        </div>
+
+        <div class="field">
+            <a class="add-point" href="javascript:void(0)"><i class="icon16 add"></i>Добавить пункт выдачи</a>
+        </div>
+
+
+
+
+
+
+
+        <div class="field">
+            <div class="value submit">
+                <input type="submit" class="button green" value="Сохранить">
+                <span id="plugins-settings-form-status" style="display:none">
+                    <i style="vertical-align:middle" class="icon16 yes"></i> [`Saved`]
+                </span>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    function initRemove() {
+        $('.remove-point').click(function() {
+            $(this).parent().remove();
+        });
+    }
+    $(function() {
+        initRemove();
+        $('.add-point').click(function() {
+            $('.pointsissue_container').append('<div class="field">\
+                <input class="long" type="text" placeholder="Пункт выдачи" value="" name="points[]">\
+                <input class="long" type="text" placeholder="Карта проезда" value="" name="pointmaps[]">\
+                <a class="remove-point" href="javascript:void(0)"><i class="icon16 cross"></i></a>\
+            </div>');
+            initRemove();
+        });
+
+
+
+
+
+    });
+</script>
