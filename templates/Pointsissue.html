@@ -1,40 +1,28 @@
-
-
-<link href="{$wa_url}wa-content/css/jquery-ui/ui-lightness/jquery.ui.dialog.css" rel="stylesheet" type="text/css" />
-
-<script type='text/javascript' src='{$wa_url}wa-content/js/jquery-ui/jquery.ui.core.min.js'></script>
-<script type='text/javascript' src='{$wa_url}wa-content/js/jquery-ui/jquery.ui.widget.min.js'></script>
-<script type='text/javascript' src='{$wa_url}wa-content/js/jquery-ui/jquery.ui.button.min.js'></script>
-<script type='text/javascript' src='{$wa_url}wa-content/js/jquery-ui/jquery.ui.draggable.min.js'></script>
-<script type='text/javascript' src='{$wa_url}wa-content/js/jquery-ui/jquery.ui.mouse.min.js'></script>
-<script type='text/javascript' src='{$wa_url}wa-content/js/jquery-ui/jquery.ui.position.min.js'></script>
-<script type='text/javascript' src='{$wa_url}wa-content/js/jquery-ui/jquery.ui.resizable.min.js'></script>
-
-<script type='text/javascript' src='{$wa_url}wa-content/js/jquery-ui/jquery.ui.dialog.min.js'></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script type='text/javascript'>
     jQuery(function($) {
-    $('.pointsissue_link').click(function(e) {
+        setTimeout(function() {
+            $('.pointsissue_mapss').dialog({
+                width: 600,
+                height: 450,
+                modal: true,
+                autoOpen: false
+            });
+        },000);
 
+    });</script>
 
-        $(this).closest('.pointsissue_item').find('.y_map').dialog({
-            height: 140,
-            modal: true
-        });
-    });
-});
-</script>
-<style>
-    .pointsissue_map{
-        display: none;
-    }
-</style>
 
 <div class="pointsissue_block">
     {if $title}<h2>{$title}</h2>{/if}
     {foreach from=$points item=point}
     <div class="pointsissue_item">
-        <span>{$point.name}</span>{if $point.map}<span>&nbsp;<a class="pointsissue_link" href="javascript:void(0);">{$link_name}</a></span>{/if}
-        <div class="pointsissue_map"><div class="y_map">{$point.map}</div></div>
+        <span>{$point.name}</span>
+        {if $point.map}
+        &nbsp;<span><a onclick="$('#pointsissue_map_{$point.id}').dialog();"  href="javascript:void(0);">{$link_name}</a></span>
+        <div id="pointsissue_map_{$point.id}" class="pointsissue_map"><div>{$point.map}</div></div>
+        {/if}
     </div>
     {/foreach}
 </div>
