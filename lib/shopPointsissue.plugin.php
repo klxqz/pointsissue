@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @author Коробонв Николай wa-plugins.ru <support@wa-plugins.ru>
+ * @link http://wa-plugins.ru/
+ */
 class shopPointsissuePlugin extends shopPlugin {
 
     protected static $plugin;
@@ -20,7 +24,7 @@ class shopPointsissuePlugin extends shopPlugin {
     }
 
     public function frontendCart() {
-        if($this->getSettings('frontend_cart')) {
+        if ($this->getSettings('frontend_cart')) {
             return self::display();
         }
     }
@@ -29,10 +33,8 @@ class shopPointsissuePlugin extends shopPlugin {
         $plugin = self::getThisPlugin();
         $pointsissue_model = new shopPointsissuePluginModel();
         $points = $pointsissue_model->getAll();
-
         $view = wa()->getView();
-        $view->assign('link_name', $plugin->getSettings('link_name'));
-        $view->assign('title', $plugin->getSettings('title'));
+        $view->assign('settings', $plugin->getSettings());
         $view->assign('points', $points);
         $template_path = wa()->getAppPath('plugins/pointsissue/templates/Pointsissue.html', 'shop');
         $html = $view->fetch($template_path);

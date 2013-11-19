@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @author Коробонв Николай wa-plugins.ru <support@wa-plugins.ru>
+ * @link http://wa-plugins.ru/
+ */
 class shopPointsissuePluginModel extends waModel {
 
     protected $table = 'shop_pointsissue';

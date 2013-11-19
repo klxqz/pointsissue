@@ -1,28 +1,31 @@
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="{$wa_url}wa-content/css/jquery-ui/jquery-ui-1.7.2.custom.css" />
+<script src="{$wa_app_static_url}plugins/pointsissue/js/jquery-ui.min.js"></script>
+
 <script type='text/javascript'>
-    jQuery(function($) {
-        setTimeout(function() {
-            $('.pointsissue_mapss').dialog({
-                width: 600,
-                height: 450,
+    
+    function modal_dialog(id) {
+        $(id).dialog({
+                width: {$settings.width_modal},
+                height: {$settings.height_modal},
                 modal: true,
-                autoOpen: false
+                autoOpen: true
             });
-        },000);
-
-    });</script>
-
+    }
+</script>
 
 <div class="pointsissue_block">
-    {if $title}<h2>{$title}</h2>{/if}
-    {foreach from=$points item=point}
-    <div class="pointsissue_item">
-        <span>{$point.name}</span>
-        {if $point.map}
-        &nbsp;<span><a onclick="$('#pointsissue_map_{$point.id}').dialog();"  href="javascript:void(0);">{$link_name}</a></span>
-        <div id="pointsissue_map_{$point.id}" class="pointsissue_map"><div>{$point.map}</div></div>
-        {/if}
-    </div>
-    {/foreach}
+    {if $settings.title}<h2>{$settings.title}</h2>{/if}
+    {if $points}
+        {foreach from=$points item=point}
+        <div class="pointsissue_item">
+            <span>{$point.name}</span>
+            {if $point.map}
+            &nbsp;<span><a onclick="modal_dialog('#pointsissue_map_{$point.id}');"  href="javascript:void(0);">{$settings.link_name}</a></span>
+            <div style="display: none;" id="pointsissue_map_{$point.id}" class="pointsissue_map">{$point.map}</div>
+            {/if}
+        </div>
+        {/foreach}
+    {else}
+    <div class="empty">Список пуст</div>
+    {/if}
 </div>
